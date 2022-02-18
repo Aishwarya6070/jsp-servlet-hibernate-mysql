@@ -1,0 +1,31 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from DetailsInfoService WSDL service -->
+
+  <service name="DetailsInfo" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://info.details.com"/>
+      <parameter name="wsdlServiceElement" value="DetailsInfoService"/>
+      <parameter name="schemaQualified" value="http://info.details.com"/>
+      <parameter name="wsdlServicePort" value="DetailsInfo"/>
+      <parameter name="className" value="com.details.info.DetailsInfoSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="DetailsInfo"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getName" qname="operNS:getName" xmlns:operNS="http://info.details.com" returnQName="retNS:getNameReturn" xmlns:retNS="http://info.details.com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="setName" qname="operNS:setName" xmlns:operNS="http://info.details.com" soapAction="" >
+        <parameter qname="pns:name" xmlns:pns="http://info.details.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="setName getName"/>
+
+  </service>
+</deployment>
